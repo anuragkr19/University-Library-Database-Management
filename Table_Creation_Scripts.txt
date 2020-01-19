@@ -1,0 +1,44 @@
+CREATE TABLE BOOK(
+    Author varchar(40),
+    Edition varchar(20),
+    ISBN varchar(15),
+    BookType varchar(15),
+    BindingType varchar(20),
+    SubjectArea varchar(20),
+    Title varchar(50),
+    PRIMARY KEY (ISBN));
+
+ 
+CREATE TABLE MEMBER(
+   SSN int,
+   CardIssuingDate date,
+   CardExpiryDate date ,
+   LibraryCardNo varchar(7),
+   PhoneNo varchar(12),
+   Membertype varchar(20),
+   Email varchar(30),
+   CampusAddress varchar(50),
+   ZipCode varchar(7),
+   City varchar(20),
+   State char(5),
+   StreetNumber varchar(30),
+   PRIMARY KEY (SSN));
+
+    
+CREATE TABLE CATALOG(
+    Description varchar(50),
+    BookISBN varchar(15),
+    AvailableCount int,
+    CheckedOutCount int,
+    PRIMARY KEY (BookISBN),
+    FOREIGN KEY (BookISBN) REFERENCES BOOK(ISBN));
+
+CREATE TABLE BorrowingActivity(
+    BookISBN varchar(15),
+    MemberSSN int,
+    GracePeriod date,
+    ReturnDate date,
+    CheckedoutDate date,
+    PRIMARY KEY (BookISBN,MemberSSN),
+    FOREIGN KEY (MemberSSN) REFERENCES MEMBER(SSN),
+    FOREIGN KEY (BookISBN) REFERENCES BOOK(ISBN));
